@@ -114,13 +114,17 @@ public class Centros {
 		ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"Colegio.db4o");
 		Centros c = new Centros(cod,null,null,null,null,null);
 		ObjectSet res = bd.queryByExample(c);
-		
+		try {
 		c = (Centros) res.next();
 		Profesores p = new Profesores(0,null,null,null,null,c);
 		ObjectSet res1 = bd.queryByExample(p);
 		while(res1.hasNext()) {
 			System.out.println(res1.next());
 		}
+		}catch(IllegalStateException e) {
+			System.out.println("No se ha encontrado el centro");
+		}
+		
 		bd.close();
 	}
 	public Centros obtenerCentros(int id) {
