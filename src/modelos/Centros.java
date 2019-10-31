@@ -124,7 +124,6 @@ public class Centros {
 		}catch(IllegalStateException e) {
 			System.out.println("No se ha encontrado el centro");
 		}
-		
 		bd.close();
 	}
 	public Centros obtenerCentros(int id) {

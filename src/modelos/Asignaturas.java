@@ -39,13 +39,15 @@ public class Asignaturas {
 	}
 	
 	public void insertarAsignatura(Asignaturas a) {
-		if(!ExisteAsignatura(a)) {
 		ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"Colegio.db4o");
+		ObjectSet res = bd.queryByExample(a);
+		if(res.isEmpty()) {
 		bd.store(a);
-		bd.close();
+		
 		}else {
 			System.out.println("EL elemento ya existe:"+ a);
 		}
+		bd.close();
 	}
 	public void borrarAsignatura(Asignaturas a) {
 		if(ExisteAsignatura(a)) {

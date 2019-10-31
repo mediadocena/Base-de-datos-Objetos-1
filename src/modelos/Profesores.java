@@ -116,7 +116,7 @@ public class Profesores {
 		
 	}
 
-	public void modificarProfesores(Profesores p,String fechaNac,String nombre,String esp,String se) {
+	public void modificarProfesores(Profesores p,String fechaNac,String nombre,String esp,String se,Centros cent) {
         ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"Colegio.db4o");
         try {
             ObjectSet res = bd.queryByExample(new Profesores(p.getCodProf(),null,null, null, null, null));
@@ -125,6 +125,7 @@ public class Profesores {
             a.setNombreEspe(esp);
             a.setFechaNac(fechaNac);
             a.setSexo(sexo);
+            a.setCentros(cent);
             bd.store(a);
             System.out.println("Profesor modificado");
         }catch(IllegalStateException ex) {
@@ -133,20 +134,22 @@ public class Profesores {
             bd.close();
         }
 	public void consultarAsignaturas(Profesores p) {
-		Asignaturas a = new Asignaturas(null,null,null);
-		Profesores pa;
-		ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"Colegio.db4o");
-		ObjectSet res = bd.queryByExample(p);
-		pa=(Profesores)res.next();
-		ObjectSet resa= bd.queryByExample(a);
-			while(resa.hasNext()) {
-				a = (Asignaturas)resa.next();
-				if(a.getSetprofesores().contains(pa)) {
-					System.out.println("Asignatura:"+a.getNombreAsi());
-				}
-			}
-		bd.close();
-	}
+        Asignaturas a = new Asignaturas(null,null,null);
+        Profesores pa;
+        ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"Colegio.db4o");
+        ObjectSet res = bd.queryByExample(p);
+        while(res.hasNext()) {
+            pa=(Profesores)res.next();
+            ObjectSet resa= bd.queryByExample(a);
+            while(resa.hasNext()) {
+                Asignaturas a1 = (Asignaturas)resa.next();
+                    if(a1.getSetprofesores().contains(pa)) {
+                        System.out.println(a1.getNombreAsi());
+                    }
+            }
+        }
+        bd.close();
+    }
 	public Profesores obtenerProfesor(int id) {
 		ObjectContainer bd=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),"Colegio.db4o");
 		Profesores c = new Profesores(id,null,null,null,null,null);

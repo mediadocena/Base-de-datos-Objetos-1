@@ -95,7 +95,7 @@ public class Main {
 					a.modificarAsignatura(a,a.getCodAsig(),ex.controlaStringSt("Nuevo nombre de asignatura:"),temp);
 				}else if(op ==2) {
 					p= new Profesores(ex.controlaenteroSt("Codigo:"),null,null,null,null,null);
-					p.modificarProfesores(p,ex.controlaStringSt("Nueva fecha de nacimiento:"),ex.controlaStringSt("Nuevo nombre:"),ex.controlaStringSt("Nueva especialidad:"),ex.controlaStringSt("Nuevo sexo:"));
+					p.modificarProfesores(p,ex.controlaStringSt("Nueva fecha de nacimiento:"),ex.controlaStringSt("Nuevo nombre:"),ex.controlaStringSt("Nueva especialidad:"),ex.controlaStringSt("Nuevo sexo:"),c.obtenerCentros(ex.controlaenteroSt("Codigo de centro:")));
 				}else if(op ==3) {
 					c = new Centros(ex.controlaenteroSt("Codigo:"),null,null,null,null,null);
 					c.modificarCentros(c,ex.controlaStringSt("nueva direccion:"),ex.controlaStringSt("Nueva localidad:"),ex.controlaStringSt("Nuevo nombre"),ex.controlaStringSt("Nueva provincia:"));
